@@ -14,15 +14,28 @@ const ShoeIndex = ({ sortId, setSortId }) => {
     <Wrapper>
       <MainColumn>
         <Header>
-          <Title>Running</Title>
-          <Select
-            label="Sort"
-            value={sortId}
-            onChange={(ev) => setSortId(ev.target.value)}
-          >
-            <option value="newest">Newest Releases</option>
-            <option value="price">Price</option>
-          </Select>
+          <TitleWrapper>
+            <BreadcrumbsContainer>
+              <Breadcrumbs>
+                <Breadcrumbs.Crumb href="/">Home</Breadcrumbs.Crumb>
+                <Breadcrumbs.Crumb href="/sale">Sale</Breadcrumbs.Crumb>
+                <Breadcrumbs.Crumb href="/sale/shoes">
+                  Shoes
+                </Breadcrumbs.Crumb>
+              </Breadcrumbs>
+            </BreadcrumbsContainer>
+            <Title>Running</Title>
+          </TitleWrapper>
+          <SelectWrapper>
+            <Select
+              label="Sort"
+              value={sortId}
+              onChange={(ev) => setSortId(ev.target.value)}
+            >
+              <option value="newest">Newest Releases</option>
+              <option value="price">Price</option>
+            </Select>
+          </SelectWrapper>
         </Header>
         <Spacer size={32} />
         <ShoeGrid />
@@ -49,8 +62,12 @@ const Wrapper = styled.div`
   gap: 32px;
 `;
 
+
 const LeftColumn = styled.div`
   flex-basis: 248px;
+  @media${p => p.theme.queries.tabletAndSmaller} {
+    display: none;
+  }
 `;
 
 const MainColumn = styled.div`
@@ -61,11 +78,40 @@ const Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  @media ${p => p.theme.queries.tabletAndSmaller} {
+    align-items: flex-end;
+  }
 `;
 
 const Title = styled.h2`
   font-size: 1.5rem;
   font-weight: ${WEIGHTS.medium};
+`;
+
+const BreadcrumbsContainer = styled.div`
+  display: block;
+`;
+
+const TitleWrapper = styled.div`
+
+${BreadcrumbsContainer}{
+  display: none;
+}
+
+@media ${p => p.theme.queries.tabletAndSmaller} {
+  display: flex;
+  flex-direction: column;
+
+  ${BreadcrumbsContainer} {
+    display: block;
+  }
+}
+`;
+
+const SelectWrapper = styled.div`
+@media ${p => p.theme.queries.phoneAndSmaller} {
+  display: none;
+}
 `;
 
 export default ShoeIndex;
